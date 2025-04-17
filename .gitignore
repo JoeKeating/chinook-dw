@@ -1,7 +1,7 @@
-./.vscode
-./.env
-./dags
-./docker
-./infra
-./notebooks
-./python/config/secrets.py
+.vscode/
+.env
+dags/
+docker/
+infra/
+notebooks/
+data/
