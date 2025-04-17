@@ -7,7 +7,7 @@ Creates landing schema tables
 create  or replace table landing.genre( 
 genre_id        text
 ,name          text
-,datetime_loaded    timestamp_ntz
+,datetime_loaded    text
 );
 
 create  or replace table landing.media_type(

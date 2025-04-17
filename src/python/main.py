@@ -48,8 +48,24 @@ def read_chinook_data(file_path: str) -> dict | None:
         logger.error(f'An error occurred reading the file: {e}')
         return None
 
-def load__genre() -> bool :
-    pass
+def load__genre(chinook_data: dict) -> bool :
+    max_key = max(chinook_data.keys())
+    insert_query = f'insert into chinook.genres (genre_id, name) values '
+    for insert_item in chinook_data['Genre']:
+        print(insert_item)
+        if insert_item['GenreId'] != max_key:
+            insert_query += f'("{insert_item['GenreId']}", "{insert_item['Name']}"),\n'
+        else:
+            insert_query += f'("{insert_item['GenreId']}", "{insert_item['Name']}")'
+
+    print(insert_query)
+    return True
+        
+    
+    # with engine.connect() as connection:
+    #     result = connection.execute(text("SELECT current_version()")).fetchone()
+        
+    
 
 def load__media_type() -> bool :
     pass
@@ -94,8 +110,7 @@ def main():
     url = '/Users/jpk/Projects/chinook-dw/data/ChinookData.json'
     chinook_data = read_chinook_data(url)
 
-    for table in chinook_data.keys():
-        print(type(table.value()))
+    load__genre(chinook_data)
 
 
 
