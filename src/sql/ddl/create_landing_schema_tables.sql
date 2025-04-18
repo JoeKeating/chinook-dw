@@ -4,7 +4,6 @@ Creates landing schema tables
 
 */
 
-
 create  or replace table landing.genre( 
 genre_id        text
 ,name          text
@@ -74,7 +73,7 @@ customer_id     text
 ,phone          text
 ,fax            text
 ,email          text
-,supportrepid   text
+,support_rep_id   text
 ,datetime_loaded    timestamp_ntz  default current_timestamp()
 );
 
@@ -112,3 +111,7 @@ playlist_id         text
 ,track_id           text
 ,datetime_loaded       timestamp_ntz  default current_timestamp()
 );
+
+
+
+
