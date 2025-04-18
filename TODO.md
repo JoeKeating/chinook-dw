@@ -36,4 +36,4 @@
 - [ ] Optional web interface to trigger jobs
 
 ---
-> Created by Joe Keating, curated with a little Ghostly guidance 
+> Created by Joe Keating, curated with a little Ghostly guidance :ghost:
