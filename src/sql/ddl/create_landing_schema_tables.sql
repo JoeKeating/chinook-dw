@@ -4,29 +4,30 @@ Creates landing schema tables
 
 */
 
+
 create  or replace table landing.genre( 
 genre_id        text
 ,name          text
-,datetime_loaded    text
+,datetime_loaded    timestamp_ntz  default current_timestamp()
 );
 
 create  or replace table landing.media_type(
 media_type_id   text
 ,name           text
-,datetime_loaded    text
+,datetime_loaded    timestamp_ntz  default current_timestamp()
 );
 
 create or replace table landing.artist (
 artist_id       text
 ,name           text
-,datetime_loaded    text
+,datetime_loaded    timestamp_ntz  default current_timestamp()
 );
 
 create  or replace table landing.album (
 album_id        text
 ,title          text
 ,artist_id      text
-,datetime_loaded    text
+,datetime_loaded    timestamp_ntz  default current_timestamp()
 );
 
 create  or replace table landing.track (
@@ -39,7 +40,7 @@ track_id        text
 ,milliseconds   text
 ,bytes          text
 ,unit_price     text
-,datetime_loaded    text
+,datetime_loaded     timestamp_ntz  default current_timestamp()
 );
 
 create  or replace table landing.employee (
@@ -57,7 +58,7 @@ employee_id     text
 ,postal_code    text
 ,phone          text
 ,email          text
-,datetime_loaded    text
+,datetime_loaded     timestamp_ntz  default current_timestamp()
 
 );
 create  or replace table landing.customer (
@@ -74,7 +75,7 @@ customer_id     text
 ,fax            text
 ,email          text
 ,supportrepid   text
-,datetime_loaded    text
+,datetime_loaded    timestamp_ntz  default current_timestamp()
 );
 
 create  or replace table landing.invoice (
@@ -87,7 +88,7 @@ invoice_id          text
 ,billing_country    text
 ,billing_postal_code    text
 ,total                  text
-,datetime_loaded    text
+,datetime_loaded     timestamp_ntz  default current_timestamp()
 );
 
 create  or replace table landing.invoice_line (
@@ -96,18 +97,18 @@ invoice_line_id     text
 ,track_id           text
 ,unit_price         text
 ,quantity           text 
-,datetime_loaded    text
+,datetime_loaded    timestamp_ntz  default current_timestamp()
 
 );
 
 create  or replace table landing.playlist (
 playlist_id         text
 ,name               text
-,datetime_loaded    text
+,datetime_loaded        timestamp_ntz  default current_timestamp()
 );
 
 create  or replace table landing.playlist_track (
 playlist_id         text
 ,track_id           text
-,datetime_loaded    text
+,datetime_loaded       timestamp_ntz  default current_timestamp()
 );
