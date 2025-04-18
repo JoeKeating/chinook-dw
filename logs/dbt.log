@@ -1,0 +1,61 @@
+[0m15:28:01.381930 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x105942270>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1066b7ed0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1066b7d90>]}
+
+
+============================== 15:28:01.385359 | c668b714-97e8-4319-a2c2-035bd9418db6 ==============================
+[0m15:28:01.385359 [info ] [MainThread]: Running with dbt=1.9.4
+[0m15:28:01.385650 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'debug': 'False', 'log_path': 'logs', 'profiles_dir': '/Users/jpk/.dbt', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'log_format': 'default', 'introspect': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'target_path': 'None', 'invocation_command': 'dbt init dbt', 'send_anonymous_usage_stats': 'True'}
+[0m15:30:47.489531 [error] [MainThread]: Encountered an error:
+
+[0m15:30:47.499000 [error] [MainThread]: Traceback (most recent call last):
+  File "/Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/dbt/cli/requires.py", line 153, in wrapper
+    result, success = func(*args, **kwargs)
+                      ~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/dbt/cli/requires.py", line 103, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/dbt/cli/main.py", line 477, in init
+    results = task.run()
+  File "/Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/dbt/task/init.py", line 324, in run
+    project_name = self.get_valid_project_name()
+  File "/Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/dbt/task/init.py", line 278, in get_valid_project_name
+    name = click.prompt("Enter a name for your project (letters, digits, underscore)")
+  File "/Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/click/termui.py", line 164, in prompt
+    value = prompt_func(prompt)
+  File "/Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/click/termui.py", line 147, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+[0m15:30:47.519871 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": false, "command_wall_clock_time": 166.17094, "process_in_blocks": "0", "process_kernel_time": 0.114622, "process_mem_max_rss": "104333312", "process_out_blocks": "0", "process_user_time": 0.562841}
+[0m15:30:47.520832 [debug] [MainThread]: Command `dbt init` failed at 15:30:47.520672 after 166.17 seconds
+[0m15:30:47.521420 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106729f30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106789250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10676a250>]}
+[0m15:30:47.522088 [debug] [MainThread]: Flushing usage events
+[0m15:30:47.791508 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:30:57.883523 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10421e270>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104f87ed0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104f87d90>]}
+
+
+============================== 15:30:57.886694 | 6b566ae4-2420-482e-aad4-5ed78757bc80 ==============================
+[0m15:30:57.886694 [info ] [MainThread]: Running with dbt=1.9.4
+[0m15:30:57.886956 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/jpk/.dbt', 'debug': 'False', 'fail_fast': 'False', 'log_path': 'logs', 'warn_error': 'None', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt init dbt_chinook', 'log_format': 'default', 'introspect': 'True', 'target_path': 'None', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m15:30:57.899503 [debug] [MainThread]: Starter project path: /Users/jpk/.pyenv/versions/3.13.2/envs/chinook-dw/lib/python3.13/site-packages/dbt/include/starter_project
+[0m15:30:57.907284 [info ] [MainThread]: 
+Your new dbt project "dbt_chinook" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m15:30:57.907419 [info ] [MainThread]: Setting up your profile.
+[0m15:33:46.627839 [info ] [MainThread]: Profile dbt_chinook written to /Users/jpk/.dbt/profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m15:33:46.634016 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 168.78386, "process_in_blocks": "0", "process_kernel_time": 0.158762, "process_mem_max_rss": "126238720", "process_out_blocks": "0", "process_user_time": 0.63609}
+[0m15:33:46.634785 [debug] [MainThread]: Command `dbt init` succeeded at 15:33:46.634595 after 168.79 seconds
+[0m15:33:46.635680 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x105ef9810>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x105f01130>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x105d67ac0>]}
+[0m15:33:46.636300 [debug] [MainThread]: Flushing usage events
+[0m15:33:46.810130 [debug] [MainThread]: An error was encountered while trying to flush usage events

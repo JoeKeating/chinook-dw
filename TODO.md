@@ -3,16 +3,15 @@
 # 📈 chinook-dw Project Roadmap
 
 ## ✅ Version 1 – Initial Release
-- [ ] Load core Snowflake tables (genre, artist, album, etc.)
+- [X ] Load core Snowflake tables (genre, artist, album, etc.)
 - [x] Use SQLAlchemy with .env for secure connections
 - [x] Remove sensitive files from GitHub history
 - [x] Version-controlled, clean GitHub repo established
-- [ ] Set up dbt and raw data sources
+- [x] Introduce dbt layer for data transformations
 
 ## 🔄 Version 2 – Enhancements & Refinement
 - [ ] Replace raw SQL setup with parameterized Python scripts
 - [ ] CLI commands: `create-user`, `load-all`, `setup-schema`
-- [ ] Introduce dbt layer for data transformations
 - [ ] Create `.env.example` for onboarding
 - [ ] Add logging with timestamps for all loads
 - [ ] Secrets moved to AWS Secrets
