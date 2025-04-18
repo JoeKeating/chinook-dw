@@ -37,21 +37,3 @@
 
 ---
 > Created by Joe Keating, curated with a little Ghostly guidance 
-Config-Driven Enhancements (vFuture)
- Use a YAML or JSON config file to define load order and table-specific settings
-
- Replace hardcoded load functions with a loop driven by a config map
-
- Centralize environment-specific metadata (e.g., DB, schema, role) in config
-
- Configure logging levels, formats, and output destinations via logging.yml
-
- Move retry logic and error-handling rules into a config file
-
- Support dynamic file paths and data sources via config entries
-
- Enable toggles for optional load steps (e.g., truncate tables before load)
-
- Designate test vs. production behaviors through config switches
-
-
