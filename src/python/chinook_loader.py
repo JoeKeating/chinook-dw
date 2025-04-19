@@ -1,5 +1,5 @@
 import logging
-from sqlalchemy import create_engine, Table, MetaData, insert
+from sqlalchemy import  Table, MetaData, insert
 from sqlalchemy.engine import Engine
 
 logging.basicConfig(
@@ -20,19 +20,21 @@ def load__genre(chinook_data: dict, engine: Engine) -> bool:
 
     # Define table object
     try:
-        genre_table = Table("GENRE", metadata, autoload_with=engine, schema="LANDING")
+        genre_table = Table("GENRE", 
+                            metadata,
+                            autoload_with=engine,
+                            schema="LANDING")
 
     except Exception as e:
-        print(f"genre_table failed: {e}")
+        print("genre_table failed: {e}")
         return False
-
     try:
         with engine.begin() as conn:
             conn.execute(insert(genre_table), genre_data)
-            logger.info(f"Successfully loaded genre_table")
+            logger.info("Successfully loaded genre_table")
             return True
     except Exception as e:
-        logger.error(f"Failed to insert into genre table: {e}")
+        logger.error("Failed to insert into genre table: {e}")
         return False
 
 
@@ -52,16 +54,16 @@ def load__media_type(chinook_data: dict, engine: Engine) -> bool:
         )
 
     except Exception as e:
-        print(f"media_type_table failed: {e}")
+        print("media_type_table failed: {e}")
         return False
 
     try:
         with engine.begin() as conn:
             conn.execute(insert(media_type_table), media_type_data)
-            logger.info(f"Successfully loaded media_type_table")
+            logger.info("Successfully loaded media_type_table")
             return True
     except Exception as e:
-        logger.error(f"Failed to insert into media_type table: {e}")
+        logger.error("Failed to insert into media_type table: {e}")
         return False
 
 
@@ -76,16 +78,18 @@ def load__artist(chinook_data: dict, engine: Engine) -> bool:
 
     # Define table object
     try:
-        artist_table = Table("ARTIST", metadata, autoload_with=engine, schema="LANDING")
+        artist_table = Table("ARTIST", metadata,
+                              autoload_with=engine,
+                              schema="LANDING")
 
     except Exception as e:
-        print(f"artist_table failed: {e}")
+        print("artist_table failed: {e}")
         return False
 
     try:
         with engine.begin() as conn:
             conn.execute(insert(artist_table), artist_data)
-            logger.info(f"Successfully loaded artist_table")
+            logger.info("Successfully loaded artist_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into artist table: {e}")
@@ -107,7 +111,10 @@ def load__album(chinook_data: dict, engine: Engine) -> bool:
 
     # Define table object
     try:
-        album_table = Table("ALBUM", metadata, autoload_with=engine, schema="LANDING")
+        album_table = Table("ALBUM", 
+                            metadata, 
+                            autoload_with=engine, 
+                            schema="LANDING")
 
     except Exception as e:
         print(f"album_table failed: {e}")
@@ -116,7 +123,7 @@ def load__album(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(album_table), album_data)
-            logger.info(f"Successfully loaded album_table")
+            logger.info("Successfully loaded album_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into album table: {e}")
@@ -153,7 +160,7 @@ def load__track(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(track_table), track_data)
-            logger.info(f"Successfully loaded track_table")
+            logger.info("Successfully loaded track_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into track table: {e}")
@@ -198,7 +205,7 @@ def load__employee(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(employee_table), employee_data)
-            logger.info(f"Successfully loaded employee_table")
+            logger.info("Successfully loaded employee_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into employee table: {e}")
@@ -241,7 +248,7 @@ def load__customer(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(customer_table), customer_data)
-            logger.info(f"Successfully loaded customer_table")
+            logger.info("Successfully loaded customer_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into customer table: {e}")
@@ -280,7 +287,7 @@ def load__invoice(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(invoice_table), invoice_data)
-            logger.info(f"Successfully loaded invoice_table")
+            logger.info("Successfully loaded invoice_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into invoice table: {e}")
@@ -315,7 +322,7 @@ def load__invoice_line(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(invoice_line_table), invoice_line_data)
-            logger.info(f"Successfully loaded invoice_line_table")
+            logger.info("Successfully loaded invoice_line_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into invoice_line table: {e}")
@@ -344,7 +351,7 @@ def load__playlist(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(playlist_table), playlist_data)
-            logger.info(f"Successfully loaded playlist_table")
+            logger.info("Successfully loaded playlist_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into playlist table: {e}")
@@ -373,7 +380,7 @@ def load__playlist_track(chinook_data: dict, engine: Engine) -> bool:
     try:
         with engine.begin() as conn:
             conn.execute(insert(playlist_track_table), playlist_track_data)
-            logger.info(f"Successfully loaded playlist_track_table")
+            logger.info("Successfully loaded playlist_track_table")
             return True
     except Exception as e:
         logger.error(f"Failed to insert into playlist_track table: {e}")

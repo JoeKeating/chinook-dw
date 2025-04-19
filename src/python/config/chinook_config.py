@@ -30,7 +30,8 @@ except Exception as e:
 def get_chinook_loader_secret() -> dict | bool:
     try:
         session = Session(profile_name="chinook-loader-secret-reader")
-        client = session.client(service_name="secretsmanager", region_name="us-east-2")
+        client = session.client(service_name="secretsmanager",
+                                region_name="us-east-2")
     except Exception as e:
         logging.error(
             f"An error occurred establishing the " "connection to" f"AWS: {e}"
