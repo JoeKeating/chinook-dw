@@ -3,7 +3,7 @@
 # 📈 chinook-dw Project Roadmap
 
 ## ✅ Version 1 – Initial Release
-- [X] Load core Snowflake tables (genre, artist, album, etc.)
+- [x] Load core Snowflake tables (genre, artist, album, etc.)
 - [x] Use SQLAlchemy with .env for secure connections
 - [x] Remove sensitive files from GitHub history
 - [x] Version-controlled, clean GitHub repo established
@@ -15,6 +15,7 @@
 - [ ] Create `.env.example` for onboarding
 - [ ] Add logging with timestamps for all loads
 - [ ] Secrets moved to AWS Secrets
+- [x] Add linting/reformatting
 
 ## 🧪 Version 3 – Test & Automate
 - [ ] Add test coverage with Pytest or Unittest
@@ -23,11 +24,11 @@
 - [ ] Config-driven enhancements
     - [ ] Replace hardcoded load functions with a loop driven by a config map
     - [ ]  Centralize environment-specific metadata (e.g., DB, schema, role) in config
-    - [ ]   Configure logging levels, formats, and output destinations via logging.yml
-    - [ ]   Move retry logic and error-handling rules into a config file
-    - [ ]   Support dynamic file paths and data sources via config entries
-    - [ ]   Enable toggles for optional load steps (e.g., truncate tables before load)
-    - [ ]   Designate test vs. production behaviors through config switches
+    - [ ]  Configure logging levels, formats, and output destinations via logging.yml
+    - [ ]  Move retry logic and error-handling rules into a config file
+    - [ ]  Support dynamic file paths and data sources via config entries
+    - [ ]  Enable toggles for optional load steps (e.g., truncate tables before load)
+    - [ ]  Designate test vs. production behaviors through config switches
 
 ## 🌐 Future Wishlist
 - [ ] Terraform for Snowflake provisioning
