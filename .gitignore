@@ -5,4 +5,5 @@ docker/
 infra/
 notebooks/
 data/
+artifacts/
 TODO.local.md
