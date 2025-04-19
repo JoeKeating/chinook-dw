@@ -14,8 +14,8 @@
 - [ ] CLI commands: `create-user`, `load-all`, `setup-schema`
 - [ ] Create `.env.example` for onboarding
 - [ ] Add logging with timestamps for all loads
-- [ ] Secrets moved to AWS Secrets
-- [x] Add linting/reformatting
+- [x] chinook_loader secrets moved to AWS Secrets
+
 
 ## 🧪 Version 3 – Test & Automate
 - [ ] Add test coverage with Pytest or Unittest
