@@ -26,7 +26,8 @@ def open_create_engine(secrets: dict) -> Engine | None:
     try:
         engine = create_engine(
             f"snowflake://{db_user}:{db_password}@{db_account}/"
-            f"{db_database}/{db_schema}?role={db_role}&warehouse={db_warehouse}&timezone=America/New_York"
+            f"{db_database}/{db_schema}?role={db_role}&warehouse={db_warehouse}&\
+                timezone=America/New_York"
         )
         return engine
 
