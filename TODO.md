@@ -3,7 +3,7 @@
 # 📈 chinook-dw Project Roadmap
 
 ## ✅ Version 1 – Initial Release
-- [X ] Load core Snowflake tables (genre, artist, album, etc.)
+- [X] Load core Snowflake tables (genre, artist, album, etc.)
 - [x] Use SQLAlchemy with .env for secure connections
 - [x] Remove sensitive files from GitHub history
 - [x] Version-controlled, clean GitHub repo established
