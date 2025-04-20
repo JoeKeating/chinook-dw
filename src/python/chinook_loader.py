@@ -1,4 +1,5 @@
 import logging
+import yaml
 from sqlalchemy import  Table, MetaData, insert
 from sqlalchemy.engine import Engine
 
@@ -8,10 +9,10 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-
 def load__genre(chinook_data: dict, engine: Engine) -> bool:
     """Load chinook.genre table"""
     metadata = MetaData()
+    
     # Extract genre data
     genre_data = [
         {"genre_id": item["GenreId"], "name": item["Name"]}
@@ -385,3 +386,10 @@ def load__playlist_track(chinook_data: dict, engine: Engine) -> bool:
     except Exception as e:
         logger.error(f"Failed to insert into playlist_track table: {e}")
         return False
+
+
+
+def main():
+    pass
+if __name__=='__main__':
+    main()
