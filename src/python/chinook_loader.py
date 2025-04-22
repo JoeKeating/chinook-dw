@@ -13,13 +13,15 @@ def check_for_key(in_dict: dict, key: str) -> bool:
     """Check if key exists in dictionary"""
     try:
         if key in in_dict.keys():
-            return True
             logging.info("Function check_for_keys: Completed successfully.")
+            return True  
         else:
             logging.info("Function check_for_keys: Completed successfully.")
             return False
     except Exception as e:
         logging.info("Function check_for_keys: Error occurred: {e}")
+        return False
+
 
 
 def check_for_schema(parsed_yaml_json: dict, in_schema: str) -> bool:
@@ -57,9 +59,12 @@ def get_table_list(parsed_yaml_json: dict, in_schema: str) -> list:
 
             else:
                 logging.info(f"Function get_table_list: Completed successfully")
+                return []
         if table_list:
+            logging.info(f"Function get_table_list: Completed successfully")
             return table_list
         else:
+            logging.info(f"Function get_table_list: Completed successfully")
             return []
     except Exception as e:
         logging.error(f"Function get_table_list: Error occurred {e}")
