@@ -2,12 +2,130 @@ import logging
 import yaml
 from sqlalchemy import  Table, MetaData, insert
 from sqlalchemy.engine import Engine
+##
+import pprint
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 logger = logging.getLogger(__name__)
+
+
+def check_for_key(in_dict: dict, key: str) -> bool:
+    '''Check if key exists in dictionary'''
+    try:
+        if key in in_dict.keys():
+            return True
+            logging.info('Function check_for_keys: Completed successfully')
+        else:
+            logging.info('Function check_for_keys: Completed successfully')
+            return False
+    except Exception as e:
+        logging.info('Function check_for_keys: Error occurred: {e}')
+    
+def check_for_schema(parsed_yaml_json: dict, in_schema: str) -> bool:
+    '''Check if schema exists in parsed yaml file'''
+    try:
+        schema_list = [schema['name'] for schema in parsed_yaml_json['databases'][0]['schemas']]
+        for schema in schema_list:
+            
+            if in_schema in schema_list:
+                logging.info(f'Function check_for_schema completed: "{in_schema}" found')
+                return True
+            else:
+                logging.info(f'Function check_for_schema completed: "{in_schema}" not found')
+                return False
+        return True
+    except Exception as e:
+        logging.error(f'Error occurred checking for schema {e}')
+        return False
+        
+    
+def get_table_list(parsed_yaml_json: dict, in_schema: str) -> list:
+    '''Get list of tables to load'''
+    try:
+        db_schemas = [parsed_yaml_json['databases'][0]['schemas']]
+        
+        for schema in db_schemas[0]:
+            if check_for_schema(parsed_yaml_json, 'landing') and check_for_key(schema, 'tables'):
+                table_list = [table['name'] for table in schema['tables']]
+               
+            else:
+                logging.info(f'get_table_list completed: Returning table list')
+        if table_list:
+            return table_list
+        else:
+            return []
+    except Exception as e:
+        logging.error(f'An exception occurred getting table list {e}')
+        return []
+    
+def build_load_data(chinook_data: dict, parsed_yaml_json: dict, schema_name: str, table_name: str) -> dict:
+    '''Build data payload package for load into db'''
+    try:
+        for schema in parsed_yaml_json['databases'][0]['schemas']:
+            if schema['name'] == schema_name:
+                load_payload_data={}
+                for table in schema['tables']:
+                    if table['name'] == table_name:
+                        load_payload_data['name'] =  table['name']
+                        load_payload_data['source_name'] =  table['source_name']
+                        column_list = [{'name': column['name'], 'source_name': column['source_name'] }for column in table['columns']\
+                                    if column['name'] != 'datetime_loaded']
+                        load_payload_data['columns'] = column_list
+                        
+                        
+                        table_data = [
+                        {column['name']: item[column['source_name']] for column in load_payload_data['columns']}
+                        for item in chinook_data[load_payload_data['source_name']]
+                        ]
+                        return table_data
+
+    except Exception as e:
+        logging.ERROR(f'An error occurred building the payload dictionary: ')
+        return {}
+                
+
+def load_chinook_data(table_data: dict, schema_name: str, table_name: str, engine: Engine) -> bool:
+    """Load chinook.genre table"""
+    metadata = MetaData()
+    
+    # Define table object
+    try:
+        load_table = Table(table_name.upper(), 
+                            metadata,
+                            autoload_with=engine,
+                            schema= schema_name.upper())
+
+    except Exception as e:
+        print("genre_table failed: {e}")
+        return False
+    try:
+        with engine.begin() as conn:
+            conn.execute(insert(load_table), table_data)
+            logger.info(f'Successfully loaded {table_name}')
+            return True
+    except Exception as e:
+        logger.error(f'Failed to insert into {table_name}: {e}')
+        return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########
+#^^^^^^^^
+# NEW STUFF
 
 def load__genre(chinook_data: dict, engine: Engine) -> bool:
     """Load chinook.genre table"""
@@ -18,6 +136,8 @@ def load__genre(chinook_data: dict, engine: Engine) -> bool:
         {"genre_id": item["GenreId"], "name": item["Name"]}
         for item in chinook_data["Genre"]
     ]
+
+    print(genre_data)
 
     # Define table object
     try:
@@ -109,7 +229,7 @@ def load__album(chinook_data: dict, engine: Engine) -> bool:
         }
         for item in chinook_data["Album"]
     ]
-
+    print(album_data)
     # Define table object
     try:
         album_table = Table("ALBUM", 
