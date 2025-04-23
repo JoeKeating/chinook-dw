@@ -10,11 +10,11 @@
 - [x] Introduce dbt layer for data transformations
 
 ## 🔄 Version 2 – Enhancements & Refinement
-- [ ] Replace raw SQL setup with parameterized Python scripts
-- [ ] CLI commands: `create-user`, `load-all`, `setup-schema`
-- [ ] Create `.env.example` for onboarding
-- [ ] Add logging with timestamps for all loads
+- [x] Replace raw SQL setup with parameterized Python scripts
+- [x] CLI commands: `create-user`, `load-all`, `setup-schema`
+- [x] Add logging with timestamps for all loads
 - [x] chinook_loader secrets moved to AWS Secrets
+- [ ] Model Foundation zone in dbt
 
 
 ## 🧪 Version 3 – Test & Automate
