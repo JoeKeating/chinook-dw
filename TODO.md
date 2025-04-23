@@ -11,10 +11,17 @@
 
 ## 🔄 Version 2 – Enhancements & Refinement
 - [x] Replace raw SQL setup with parameterized Python scripts
+<<<<<<< HEAD
 - [x] CLI commands: `create-user`, `load-all`, `setup-schema`
 - [x] Add logging with timestamps for all loads
 - [x] chinook_loader secrets moved to AWS Secrets
 - [ ] Model Foundation zone in dbt
+=======
+- [ ] CLI commands: `create-user`, `load-all`, `setup-schema`
+- [x] Add logging with timestamps for all loads
+- [x] chinook_loader secrets moved to AWS Secrets
+- [ ] Buildout foundation models in dbt
+>>>>>>> 7ed56629a138f4d91eb8ad513e1afa2525d1a154
 
 
 ## 🧪 Version 3 – Test & Automate

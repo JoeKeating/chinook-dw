@@ -2,6 +2,7 @@ import logging
 from sqlalchemy import Table, MetaData, insert
 from sqlalchemy.engine import Engine
 
+
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -13,13 +14,15 @@ def check_for_key(in_dict: dict, key: str) -> bool:
     """Check if key exists in dictionary"""
     try:
         if key in in_dict.keys():
-            return True
             logging.info("Function check_for_keys: Completed successfully.")
+            return True  
         else:
             logging.info("Function check_for_keys: Completed successfully.")
             return False
     except Exception as e:
-        logging.info("Function check_for_keys: Error occurred: {e}")
+        logging.info(f"Function check_for_keys: Error occurred: {e}")
+        return False
+
 
 
 def check_for_schema(parsed_yaml_json: dict, in_schema: str) -> bool:
@@ -47,19 +50,19 @@ def check_for_schema(parsed_yaml_json: dict, in_schema: str) -> bool:
 def get_table_list(parsed_yaml_json: dict, in_schema: str) -> list:
     """Get list of tables to load"""
     try:
-        db_schemas = [parsed_yaml_json["databases"][0]["schemas"]]
-
-        for schema in db_schemas[0]:
+        
+        db_schemas = parsed_yaml_json["databases"][0]["schemas"]
+    
+        for schema in db_schemas:
             if check_for_schema(parsed_yaml_json, "landing") and check_for_key(
                 schema, "tables"
             ):
                 table_list = [table["name"] for table in schema["tables"]]
-
-            else:
-                logging.info(f"Function get_table_list: Completed successfully")
         if table_list:
+            logging.info(f"Function get_table_list: Completed successfully")
             return table_list
         else:
+            logging.info(f"Function get_table_list: Completed successfully")
             return []
     except Exception as e:
         logging.error(f"Function get_table_list: Error occurred {e}")
@@ -133,11 +136,23 @@ def load_chinook_data(
             f"Function load_chinook_data: Error occurred loading {table_name}: {e}"
         )
         return False
-
+#####
+def read_table_load_yaml(file_path: str) -> dict:
+    """Read in table_load.yaml"""
+    try:
+        with open(file_path, "r") as in_file:
+            parsed_config_data = yaml.safe_load(in_file)
+            logging.info(f'Function read_table_load_yaml: Completed successfully')
+            return parsed_config_data
+    except FileNotFoundError as e:
+        logger.error(f"Function read_table_load_yaml: Error occurred {e}")
+        return {}
+    except Exception as e:
+        logger.error(f"Function read_table_load_yaml: Error occurred {e}")
+        return {}
 
 def main():
     pass
-
 
 if __name__ == "__main__":
     main()
