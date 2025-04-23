@@ -14,7 +14,7 @@
 - [ ] CLI commands: `create-user`, `load-all`, `setup-schema`
 - [x] Add logging with timestamps for all loads
 - [x] chinook_loader secrets moved to AWS Secrets
-- [ ] Buildout foundation models in Snowflake
+- [ ] Buildout foundation models in dbt
 
 
 ## 🧪 Version 3 – Test & Automate
