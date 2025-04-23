@@ -54,7 +54,6 @@ def get_table_list(parsed_yaml_json: dict, in_schema: str) -> list:
         db_schemas = parsed_yaml_json["databases"][0]["schemas"]
     
         for schema in db_schemas:
-            print(schema.keys()) 
             if check_for_schema(parsed_yaml_json, "landing") and check_for_key(
                 schema, "tables"
             ):
