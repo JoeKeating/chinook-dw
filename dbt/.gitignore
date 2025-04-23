@@ -1,4 +1,10 @@
 
+config/
 target/
 dbt_packages/
 logs/
+__pycache__/
+*.py[cod]
+/logs
+/utils
+/infra
