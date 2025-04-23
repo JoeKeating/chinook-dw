@@ -5,6 +5,7 @@ from boto3 import Session
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 import src.python.chinook_loader as chinook_loader
+import argparse
 
 
 logging.basicConfig(
@@ -104,8 +105,8 @@ def read_table_load_yaml(file_path: str) -> dict:
         logger.error(f"Function read_table_load_yaml: Error occurred {e}")
         return {}
 
-
-def main():
+def run_data_load():
+    '''Run full data load'''
     try:
         chinook_data_file_path = r"/Users/jpk/Projects/chinook-dw/data/ChinookData.json"
         table_load_file_path = (
@@ -127,10 +128,30 @@ def main():
                 table,
             )
             chinook_loader.load_chinook_data(table_data, "landing", table, engine)
-        logging.info(f'Function main: Completed successfully')    
+        logging.info(f'Function main: Completed successfully') 
+        return True   
     except Exception as e:
         logging.error(f'Function main: Error occurred: {e}')
+        return False
 
+
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Chinook Loader CLI"
+    )
+    parser.add_argument(
+        "command",
+        choices=["load"],
+        help="Command to run full chinook dw load (olny load is supported now)"
+    )
+    args = parser.parse_args()
+    if args.command == "load":
+        run_data_load()
+    else:
+        logging.error("Invalid Command")
+    
 
 
 if __name__ == "__main__":

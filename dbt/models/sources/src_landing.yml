@@ -64,6 +64,7 @@ sources:
           - name: country
           - name: postal_code
           - name: phone
+          - name: fax
           - name: email
           - name: datetime_loaded
       
