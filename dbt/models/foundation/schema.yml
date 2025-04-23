@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: cleansed_genre
+    description: > 
+      This table contains a cleansed list of music genres. 
+    columns:
+      - name: genre_sk
+        description: A hashed unique identifier for a music genre
+        tests:
+          - unique
+          - not_null
+      - name: source_id
+        description: A unique identifier for a genre in the source file
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: The name of a music genre
+        tests:
+          - unique
+          - not_null
+      - name: source_data_loaded_datetime
+        description: Datetime source file was loaded into landing

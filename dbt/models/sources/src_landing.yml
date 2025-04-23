@@ -3,31 +3,31 @@ version: 2
 sources:
   - name: landing
     database: chinook
-    description: "Raw tables from the Chinook dataset."
+    description: Raw tables from the Chinook dataset.
     tables:
       - name: genre
-        description: "List of music genres."
+        description: List of music genres.
         columns:
           - name: genre_id
           - name: name
           - name: datetime_loaded
       
       - name: media_type
-        description: "List of media types."
+        description: List of media types.
         columns:
           - name: genre_id
           - name: name
           - name: datetime_loaded
       
       - name: artist
-        description: "List of recording artists"
+        description: List of recording artists
         columns:
           - name: artist_id
           - name: name
           - name: datetime_loaded
       
       - name: album
-        description: "List of albums."
+        description: List of albums.
         columns:
           - name: album_id
           - name: title
@@ -35,7 +35,7 @@ sources:
           - name: datetime_loaded
       
       - name: track
-        description: "List of tracks on albums."
+        description: List of tracks on albums.
         columns:
           - name: track_id
           - name: name
@@ -49,7 +49,7 @@ sources:
           - name: datetime_loaded
       
       - name: employee
-        description: "List of record store employees."
+        description: List of record store employees.
         columns:
           - name: employee_id
           - name: last_name
@@ -69,7 +69,7 @@ sources:
           - name: datetime_loaded
       
       - name: customer
-        description: "List of record store customers."
+        description: List of record store customers.
         columns:
           - name: customer_id
           - name: first_name
@@ -87,7 +87,7 @@ sources:
           - name: datetime_loaded
       
       - name: invoice
-        description: "List of invoices."
+        description: List of invoices.
         columns:
           - name: invoice_id
           - name: customer_id
@@ -101,7 +101,7 @@ sources:
           - name: datetime_loaded
       
       - name: invoice_line
-        description: "List of invoice line items."
+        description: List of invoice line items.
         columns:
           - name: invoice_line_id
           - name: invoice_id
@@ -111,14 +111,14 @@ sources:
           - name: datetime_loaded
       
       - name: playlist
-        description: "List of playlists."
+        description: List of playlists.
         columns:
           - name: playlist_id
           - name: name
           - name: datetime_loaded
       
       - name: playlist_track
-        description: "List of track on playlist."
+        description: List of track on playlist.
         columns:
           - name: playlist_id
           - name: track_id
