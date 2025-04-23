@@ -109,17 +109,14 @@ def run_data_load():
     '''Run full data load'''
     try:
         chinook_data_file_path = r"/Users/jpk/Projects/chinook-dw/data/ChinookData.json"
-        table_load_file_path = (
-            r"/Users/jpk/Projects/chinook-dw/src/python/config/table_load.yaml"
-        )
+        table_load_file_path =  r"/Users/jpk/Projects/chinook-dw/src/python/config/table_load.yaml"
+        
 
         chinook_data = read_chinook_data(chinook_data_file_path)
         parsed_yaml_json = read_table_load_yaml(table_load_file_path)
         table_list = chinook_loader.get_table_list(parsed_yaml_json, "landing")
         connect_string = build_chinook_dw_connection_string(parsed_yaml_json)
         engine = create_chinook_dw_engine(connect_string)
-        print(connect_string)
-
         for table in table_list:
             table_data = chinook_loader.build_load_data(
                 chinook_data,
@@ -144,13 +141,15 @@ def main():
     parser.add_argument(
         "command",
         choices=["load"],
-        help="Command to run full chinook dw load (olny load is supported now)"
+        help="Command to run full chinook dw load (only load is supported now)"
     )
     args = parser.parse_args()
     if args.command == "load":
         run_data_load()
+        return True
     else:
         logging.error("Invalid Command")
+        return False
     
 
 
