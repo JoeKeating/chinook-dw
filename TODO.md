@@ -10,11 +10,11 @@
 - [x] Introduce dbt layer for data transformations
 
 ## 🔄 Version 2 – Enhancements & Refinement
-- [ ] Replace raw SQL setup with parameterized Python scripts
+- [x] Replace raw SQL setup with parameterized Python scripts
 - [ ] CLI commands: `create-user`, `load-all`, `setup-schema`
-- [ ] Create `.env.example` for onboarding
-- [ ] Add logging with timestamps for all loads
+- [x] Add logging with timestamps for all loads
 - [x] chinook_loader secrets moved to AWS Secrets
+- [ ] Buildout foundation models in Snowflake
 
 
 ## 🧪 Version 3 – Test & Automate
@@ -22,8 +22,8 @@
 - [ ] Mock Snowflake connections in local test mode
 - [ ] Add CI via GitHub Actions
 - [ ] Config-driven enhancements
-    - [ ] Replace hardcoded load functions with a loop driven by a config map
-    - [ ]  Centralize environment-specific metadata (e.g., DB, schema, role) in config
+    - [x] Replace hardcoded load functions with a loop driven by a config map
+    - [x]  Centralize environment-specific metadata (e.g., DB, schema, role) in config
     - [ ]  Configure logging levels, formats, and output destinations via logging.yml
     - [ ]  Move retry logic and error-handling rules into a config file
     - [ ]  Support dynamic file paths and data sources via config entries
@@ -36,4 +36,4 @@
 - [ ] Optional web interface to trigger jobs
 
 ---
-> Created by Joe Keating, curated with a little Ghostly guidance :ghost:
+> Created by Joe Keating.
