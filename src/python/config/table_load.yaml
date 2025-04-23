@@ -1,0 +1,268 @@
+metadata:
+  config_version: 1.0
+  author: Joe
+  generated_on: 2025-04-19
+version: 1
+
+connection_string:
+  database: CHINOOK
+  schema: LANDING
+  role: CHINOOK_LOADER_ROLE
+  account: pia97753.us-east-1
+  timezone: America/New_York
+  warehouse: JPK_WAREHOUSE
+
+databases:
+  - name: chinook
+    schemas:
+      - name: core
+      - name: foundation
+      - name: landing
+        tables:
+          - name: genre
+            source_name: Genre
+            columns:
+              - name: genre_id
+                source_name: GenreId
+                datatype: text
+              - name: name
+                source_name: Name
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: media_type
+            source_name: MediaType
+            columns:
+              - name: media_type_id
+                source_name: MediaTypeId
+                datatype: text
+              - name: name
+                source_name: Name
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz text
+          - name: track
+            source_name: Track
+            columns:
+              - name: track_id
+                source_name: TrackId
+                datatype: text
+              - name: name
+                source_name: Name
+                datatype: text
+              - name: album_id
+                source_name: AlbumId
+                datatype: text
+              - name: media_type_id
+                source_name: MediaTypeId
+                datatype: text
+              - name: genre_id
+                source_name: GenreId
+                datatype: text
+              - name: composer
+                source_name: Composer
+                datatype: text
+              - name: milliseconds
+                source_name: Milliseconds
+                datatype: text
+              - name: bytes
+                source_name: Bytes
+                datatype: text
+              - name: unit_price
+                source_name: UnitPrice
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: artist
+            source_name: Artist
+            columns:
+              - name: artist_id
+                source_name: ArtistId
+                datatype: text
+              - name: name
+                source_name: Name
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: invoice
+            source_name: Invoice
+            columns:
+              - name: invoice_id
+                source_name: InvoiceId
+                datatype: text
+              - name: customer_id
+                source_name: CustomerId
+                datatype: text
+              - name: invoice_date
+                source_name: InvoiceDate
+                datatype: text
+              - name: billing_address
+                source_name: BillingAddress
+                datatype: text
+              - name: billing_city
+                source_name: BillingCity
+                datatype: text
+              - name: billing_state
+                source_name: BillingState
+                datatype: text
+              - name: billing_country
+                source_name: BillingCountry
+                datatype: text
+              - name: billing_postal_code
+                source_name: BillingPostalCode
+                datatype: text
+              - name: total
+                source_name: Total
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: invoice_line
+            source_name: InvoiceLine
+            columns:
+              - name: invoice_line_id
+                source_name: InvoiceLineId
+                datatype: text
+              - name: invoice_id
+                source_name: InvoiceId
+                datatype: text
+              - name: track_id
+                source_name: TrackId
+                datatype: text
+              - name: unit_price
+                source_name: UnitPrice
+                datatype: text
+              - name: quantity
+                source_name: Quantity
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: playlist_track
+            source_name: PlaylistTrack
+            columns: 
+              - name: playlist_id
+                source_name: PlaylistId
+                datatype: text
+              - name: track_id
+                source_name: TrackId
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: customer
+            source_name: Customer
+            columns:
+              - name: customer_id
+                datatype: text
+                source_name: CustomerId
+              - name: first_name
+                datatype: text
+                source_name: FirstName
+              - name: last_name
+                source_name: LastName
+                datatype: text
+              - name: company
+                source_name: Company
+                datatype: text
+              - name: address
+                source_name: Address
+                datatype: text
+              - name: city
+                source_name: City
+                datatype: text
+              - name: state
+                source_name: State
+                datatype: text
+              - name: country
+                source_name: Country
+                datatype: text
+              - name: postal_code
+                source_name: PostalCode
+                datatype: text
+              - name: phone
+                source_name: Phone
+                datatype: text
+              - name: fax
+                source_name: Fax
+                datatype: text
+              - name: email
+                source_name: Email
+                datatype: text
+              - name: support_rep_id
+                source_name: SupportRepId
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: playlist
+            source_name: Playlist
+            columns:
+              - name: playlist_id
+                source_name: PlaylistId
+                datatype: text
+              - name: name
+                source_name: Name
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: album
+            source_name: Album
+            columns:
+              - name: album_id
+                source_name: AlbumId
+                datatype: text
+              - name: title
+                source_name: Title
+                datatype: text
+              - name: artist_id
+                source_name: ArtistId
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
+          - name: employee
+            source_name: Employee
+            columns:
+              - name: employee_id
+                source_name: EmployeeId
+                datatype: text
+              - name: last_name
+                source_name: LastName
+                datatype: text
+              - name: first_name
+                source_name: FirstName
+                datatype: text
+              - name: title
+                source_name: Title
+                datatype: text
+              - name: reports_to
+                source_name: ReportsTo
+                datatype: text
+              - name: birth_date
+                source_name: BirthDate
+                datatype: text
+              - name: hire_date
+                source_name: HireDate
+                datatype: text
+              - name: address
+                source_name: Address
+                datatype: text
+              - name: city
+                source_name: City
+                datatype: text
+              - name: state
+                source_name: State
+                datatype: text
+              - name: country
+                source_name: Country
+                datatype: text
+              - name: postal_code
+                source_name: PostalCode
+                datatype: text
+              - name: phone
+                source_name: Phone
+                datatype: text
+              - name: fax
+                source_name: Fax
+                datatype: text
+              - name: email
+                source_name: Email
+                datatype: text
+              - name: datetime_loaded
+                datatype: timezone_ntz
