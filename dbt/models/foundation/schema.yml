@@ -1,24 +1,94 @@
 version: 2
 
 models:
-  - name: cleansed_genre
-    description: > 
-      This table contains a cleansed list of music genres. 
+  - name: foundation_genre
+    description: This table contains a cleansed list of music genres 
     columns:
       - name: genre_sk
         description: A hashed unique identifier for a music genre
         tests:
           - unique
           - not_null
-      - name: source_id
+      - name: genre_source_id
         description: A unique identifier for a genre in the source file
         tests:
           - unique
           - not_null
-      - name: name
+      - name: genre_name
         description: The name of a music genre
         tests:
           - unique
           - not_null
       - name: source_data_loaded_datetime
         description: Datetime source file was loaded into landing
+  - name: foundation_media_type
+    description: This table contains a cleansed list of media types
+    columns:
+        - name: media_type_sk
+          description: A hashed unique identifier for a media_type
+          tests:
+            - unique
+            - not_null
+        - name: source_id
+          description: A unique identifier for a media_type in the source file
+          tests:
+            - unique
+            - not_null
+        - name: media_type_name
+          description: The name of a media_type
+          tests:
+            - unique
+            - not_null
+        - name: source_data_loaded_datetime
+          description: Datetime source file was loaded into landing
+            - not_null
+  - name: foundation_artist
+    description: This table contains a list of artists
+    columns:
+        - name: artist_sk
+          description: A hashed unique identifier for an artist
+          tests:
+            - unique
+            - not_null
+        - name: source_id
+          description: A unique identifier for an artist in the source file
+          tests:
+            - unique
+            - not_null
+        - name: artist_name
+          description: The name of an artist
+          tests:
+            - unique
+            - not_null
+        - name: source_data_loaded_datetime
+          description: Datetime source file was loaded into landing
+            - not_null
+  - name: foundation_album
+    description: This table contains a list of albums
+    columns:
+        - name: album_sk
+          description: A hashed unique identifier for an album
+          tests:
+            - unique
+            - not_null
+        - name: album_source_id
+          description: A unique identifier for an album in the source file
+          tests:
+            - unique
+            - not_null
+        - name: album_title
+          description: The title of an album
+          tests:
+            - unique
+            - not_null
+        - name: artist_sk
+          description: A hashed unique identifier for artist referring to foundation_artist
+          tests:
+            - relationships:
+                to: ref('foundation_artist')
+                field: artist_sk
+            - unique
+            - not_null
+        - name: source_data_loaded_datetime
+          description: Datetime source file was loaded into landing
+            - not_null
