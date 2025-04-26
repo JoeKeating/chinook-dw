@@ -31,18 +31,57 @@ joined_track as (
             ,t.name
             ,ak.album_sk
             ,ak.album_source_id
-            ,mk.media_type_sk
-            ,mk.media_type_source_id
-            ,g.genre_sk
-            ,g.genre_source_id
+            ,mtk.media_type_sk
+            ,mtk.media_type_source_id
+            ,gk.genre_sk
+            ,gk.genre_source_id
+            ,composer
+            ,milliseconds
+            ,bytes
+            ,unit_price
+            ,datetime_loaded
     from    landing_track t 
-            join album_keys a 
+            join album_keys ak 
     on      t.album_id = 
-            a.album_source_id
-            join genre_keys 
+            ak.album_source_id
+            join genre_keys gk
     on      t.genre_id =
-            g.genre_source_id
+            gk.genre_source_id
+            join media_type_keys mtk
     on      t.media_type_id =
-            mk.media_type_source_id
+            mtk.media_type_source_id
 ),
+transformed_track as (
+    select {{ generate_sk('track', ['track_id',
+                                    'album_source_id']) }} as track_sk
+            ,cast(track_id as bigint) as track_source_id
+            ,name as track_name
+            ,album_source_id
+            ,media_type_source_id
+            ,genre_source_id
+            ,composer as track_composer
+            ,milliseconds as track_length_milliseconds
+            ,cast(unit_price as number(10,2)) as track_unit_price
+            ,{{ generate_hashdiff('track', ['name'
+                                            ,'media_type_source_id'
+                                            ,'genre_source_id'
+                                            ,'track_composer'
+                                            ,'track_length_milliseconds'
+                                            ,'track_unit_price']) }} as track_hashdiff
+            , datetime_loaded as source_data_loaded_datetime
+    from    joined_track
+
+)
+
+select  track_sk
+        ,track_source_id
+        ,track_name
+        ,album_source_id
+        ,media_type_source_id
+        ,genre_source_id
+        ,track_composer
+        ,track_length_milliseconds
+        ,track_unit_price
+        ,source_data_loaded_datetime
+from    transformed_track
 

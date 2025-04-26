@@ -22,10 +22,12 @@ joined_album as (
                 ak.artist_source_id 
 ),
 transformed_album as (
-        select  {{ dbt_utils.generate_surrogate_key(['title', 'artist_source_id']) }} as album_sk
+        select  {{ generate_sk('album',['title'
+                                        ,'artist_source_id']) }} as album_sk
                 ,cast(album_id as bigint) as album_source_id
                 ,title as album_title
                 ,artist_sk
+                ,{{ generate_hashdiff('album', ['title']) }} as album_hashdiff
                 ,datetime_loaded as source_data_loaded_datetime
         from    joined_album
 )
@@ -34,6 +36,7 @@ transformed_album as (
                 ,album_source_id
                 ,album_title
                 ,artist_sk
+                ,album_hashdiff
                 ,source_data_loaded_datetime
         from    transformed_album
         
