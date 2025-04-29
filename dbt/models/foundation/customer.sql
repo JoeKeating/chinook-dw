@@ -18,7 +18,7 @@ with landing_customer as (
 employee_keys as (
         select  employee_sk
                 ,employee_source_id
-        from    {{ ref('foundation_employee') }}
+        from    {{ ref('employee') }}
 ),
 joined_customer as (
         select  c.customer_id     
@@ -32,7 +32,8 @@ joined_customer as (
                 ,c.postal_code    
                 ,c.phone          
                 ,c.fax            
-                ,c.email          
+                ,c.email 
+                ,ek.employee_source_id         
                 ,ek.employee_sk  
                 ,c.datetime_loaded  
         from    landing_customer c 
@@ -55,8 +56,21 @@ transformed_customer as (
                 ,cast(postal_code   as varchar(50)) as customer_postal_code
                 ,cast(phone  as varchar(50)) as customer_phone       
                 ,cast(fax  as varchar(50))  as customer_fax         
-                ,cast(email   as varchar(50))  as customer_email      
-                ,employee_sk as customer_support_rep_id
+                ,cast(email   as varchar(50))  as customer_email  
+                ,employee_source_id as customer_support_rep_source_id    
+                ,employee_sk as customer_support_rep_sk
+                ,{{ generate_hashdiff('customer', ['customer_first_name'
+                                                 ,'customer_last_name'
+                                                 ,'customer_company'
+                                                 ,'customer_address'
+                                                 ,'customer_city'
+                                                 ,'customer_state'
+                                                 ,'customer_postal_code'
+                                                 ,'customer_phone'
+                                                 ,'customer_email'
+                                                 ,'customer_fax'
+                                                 ,'employee_source_id'   
+                                                 ]) }} as customer_hashdiff
                 ,datetime_loaded   as source_data_loaded_datetime
         from joined_customer
 )
@@ -72,8 +86,10 @@ transformed_customer as (
                 ,customer_postal_code
                 ,customer_phone       
                 ,customer_fax         
-                ,customer_email      
-                ,customer_support_rep_id
+                ,customer_email 
+                ,customer_support_rep_source_id    
+                ,customer_support_rep_sk
+                ,customer_hashdiff
                 ,source_data_loaded_datetime
         from    transformed_customer
 

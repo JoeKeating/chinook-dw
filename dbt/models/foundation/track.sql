@@ -14,17 +14,17 @@ with landing_track as (
 media_type_keys as (
     select  media_type_sk
             ,media_type_source_id
-    from    {{ ref('foundation_media_type') }}
+    from    {{ ref('media_type') }}
 ),
 album_keys as (
     select  album_sk
             ,album_source_id
-    from    {{ ref('foundation_album') }}
+    from    {{ ref('album') }}
 ),
 genre_keys as (
     select  genre_sk
             ,genre_source_id
-    from    {{ ref('foundation_genre') }}
+    from    {{ ref('genre') }}
 ),
 joined_track as (
     select  t.track_id
@@ -52,13 +52,15 @@ joined_track as (
             mtk.media_type_source_id
 ),
 transformed_track as (
-    select {{ generate_sk('track', ['track_id',
-                                    'album_source_id']) }} as track_sk
+    select {{ generate_sk('track', ['track_id']) }} as track_sk
             ,cast(track_id as bigint) as track_source_id
             ,name as track_name
-            ,album_source_id
-            ,media_type_source_id
-            ,genre_source_id
+            ,cast(album_source_id as bigint) as album_source_id
+            ,cast(media_type_source_id as bigint) as media_type_source_id
+            ,cast(genre_source_id  as bigint) as genre_source_id
+            ,album_sk
+            ,media_type_sk
+            ,genre_sk
             ,composer as track_composer
             ,milliseconds as track_length_milliseconds
             ,cast(unit_price as number(10,2)) as track_unit_price

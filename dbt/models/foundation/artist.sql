@@ -7,7 +7,7 @@ from    {{ source('landing', 'artist') }}
 ),
 transformed_artist as (
 
-select  {{ generate_sk('media_type',['artist_id']) }} as artist_sk
+select  {{ generate_sk('artist',['artist_id']) }} as artist_sk
         ,cast(artist_id as bigint) as artist_source_id
         ,name as artist_name
         ,{{ generate_hashdiff('artist', ['name']) }} as artist_hashdiff
