@@ -1,24 +1,915 @@
 version: 2
 
 models:
-  - name: cleansed_genre
-    description: > 
-      This table contains a cleansed list of music genres. 
+  - name: album
+    description: >
+      "This model transforms raw album data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns a surrogate key (`album_sk`), 
+        and creates a `album_hashdiff` for change tracking."
+    columns:
+      - name: album_sk
+        tests:
+          - unique
+          - not_null
+        data_type: varchar
+        description:  >
+          "Surrogate key for album, generated via `generate_sk` macro."
+
+      - name: album_source_id
+        tests:
+          - unique
+          - not_null
+        data_type: number
+        description: >
+          "Original natural key, `album_id` from the source system, cast as bigint."
+
+      - name: album_title
+        tests:
+            - not_null
+        data_type: varchar
+        description: >
+          "Title of album."
+
+      - name: artist_source_id
+        tests:
+          - not_null
+        data_type: number
+        description: >
+          "Original natural key of the artist who recorded the album."
+
+      - name: artist_sk
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+          "Surrogate key of the artist who recorded the album."
+
+      - name: album_hashdiff
+        tests:
+          - unique
+          - not_null
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: artist
+    description: >
+      "This model transforms raw artist data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns a surrogate key (`artist_sk`), 
+        and creates a `artist_hashdiff` for change tracking."
+    columns:
+      - name: artist_sk
+        tests:
+          - unique
+          - not_null
+        data_type: varchar
+        description:  >
+          "Surrogate key for artist, generated via `generate_sk` macro."
+
+      - name: artist_source_id
+        tests:
+          - unique
+          - not_null
+        data_type: number
+        description: >
+          "Original natural key, `artist_id` from the source system, cast as bigint."
+
+      - name: artist_name
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Name of the artist."
+
+      - name: artist_hashdiff
+        tests:
+          - unique
+          - not_null
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: customer
+    description: >
+      "This model transforms raw customer data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns a surrogate key (`customer_sk`), 
+        and creates a `customer_hashdiff` for change tracking."
+    columns:
+      - name: customer_sk
+        tests:
+          - unique
+          - not_null
+        data_type: varchar
+        description:  >
+          "Surrogate key for customer, generated via `generate_sk` macro."
+
+      - name: customer_source_id
+        tests:
+          - unique
+          - not_null
+        data_type: number
+        description: >
+          "Original natural key, `customer_id` from the source system, cast as bigint."
+
+      - name: customer_first_name
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "First name of the customer."
+
+      - name: customer_last_name
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Last name of the customer."
+
+      - name: customer_company
+        data_type: varchar
+        description: >
+           "Company the customer employed by."
+
+      - name: customer_address
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Customer street address."
+
+      - name: customer_city
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Customer city."
+
+      - name: customer_state
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Customer state."
+
+      - name: customer_country
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Customer country."
+
+      - name: customer_postal_code
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Customer postal code."
+
+      - name: customer_phone
+        data_type: varchar
+        description: >
+           "Customer phone number."
+
+      - name: customer_fax
+        data_type: varchar
+        description: >
+           "Customer fax number."
+
+      - name: customer_email
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+           "Customer email address."
+
+      - name: customer_support_rep_source_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('employee')
+              field: employee_source_id
+        data_type: number
+        description: >
+          "Original natural key of the customer's support rep."
+
+      - name: customer_support_rep_sk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('employee')
+              field: employee_sk
+        data_type: varchar
+        description: >
+          "Surrogate key of the customer's support rep."
+
+      - name: customer_hashdiff
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: employee
+    description: >
+      "This model transforms raw employee data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns a surrogate key (`employee_sk`), 
+        and creates a `employee_hashdiff` for change tracking."
+    columns:
+      - name: employee_sk
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for employee, generated via `generate_sk` macro."
+
+      - name: employee_source_id
+        tests:
+          - not_null
+          - unique
+        data_type: number
+        description: >
+          "Original natural key, `employee_id` from the source system, cast as bigint."
+
+      - name: employee_last_name
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee last name."
+
+      - name: employee_first_name
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee first name."
+
+      - name: employee_title
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee title"
+
+      - name: reports_to_employee_source_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('employee')
+              field: employee_source_id
+        data_type: number
+        description: >
+          "Original natural key of the employee's manager."
+
+      - name: reports_to_employee_sk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('employee')
+              field: employee_sk
+        data_type: varchar
+        description: >
+          "Surrogate key of the employee's manager."
+
+      - name: employee_birth_date
+        tests:
+          - not_null
+        data_type: date
+        description: >
+           "Employee date of birth."
+
+      - name: employee_hire_date
+        tests:
+          - not_null
+        data_type: date
+        description: >
+           "Employee date of hire."
+
+      - name: employee_address
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee street address."
+
+      - name: employee_city
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee city."
+
+      - name: employee_state
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee state."
+
+      - name: employee_country
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee country."
+
+      - name: employee_postal_code
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee postal code."
+
+      - name: employee_phone
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Employee phone number."
+
+      - name: employee_fax
+        data_type: varchar
+        description: >
+           "Employee fax number."
+
+      - name: employee_email
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+           "Employee email address."
+
+      - name: employee_hashdiff
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: genre
+    description: >
+      "This model transforms raw genre data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns a surrogate key (`genre_sk`), 
+        and creates a `genre_hashdiff` for change tracking."
     columns:
       - name: genre_sk
-        description: A hashed unique identifier for a music genre
         tests:
-          - unique
           - not_null
-      - name: source_id
-        description: A unique identifier for a genre in the source file
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for genre, generated via `generate_sk` macro."
+
+      - name: genre_source_id
+        data_type: number
         tests:
-          - unique
           - not_null
-      - name: name
-        description: The name of a music genre
+          - unique
+        description: >
+          "Original natural key, `genre_id` from the source system, cast as bigint."
+
+      - name: genre_name
         tests:
-          - unique
           - not_null
+        data_type: varchar
+        description: >
+           "Name of genre."
+
+      - name: genre_hashdiff
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
       - name: source_data_loaded_datetime
-        description: Datetime source file was loaded into landing
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: invoice_line
+    description: >
+      "This model transforms raw invoice data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns a surrogate key (`invoice_sk`), 
+        and creates a `invoice_line_hashdiff` for change tracking."
+    columns:
+      - name: invoice_line_sk
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for invoice_line, generated via `generate_sk` macro."
+
+      - name: invoice_line_source_id
+        tests:
+          - not_null
+          - unique
+        data_type: number
+        description: >
+          "Original natural key, `invoice_line_id` from the source system, cast as bigint."
+       
+      - name: invoice_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('invoice')
+              field: invoice_source_id
+        data_type: number
+        description: >
+          "Original natural key of the customer's support rep."
+      
+      - name: invoice_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('invoice')
+              field: invoice_sk
+        data_type: varchar
+        description: >
+          "Surrogate key of the parent invoice."
+
+      - name: track_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('track')
+              field: track_sk
+        data_type: varchar
+        description: >
+          "Surrogate key of the album track."
+
+      - name: track_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('track')
+              field: track_source_id
+        data_type: number
+        description: >
+          "Original natural key of the album track."
+
+      - name: invoice_line_unit_price
+        tests:
+          - not_null
+        data_type: number
+        description: >
+           "Unit price of invoice line album track."
+
+      - name: invoice_line_quantity
+        tests:
+          - not_null
+        data_type: number
+        description: >
+           "Quanity of album track purchased."
+
+      - name: invoice_line_hashdiff
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: invoice
+    description: >
+      "This model transforms raw invoice data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns a surrogate key (`invoice_sk`), 
+        and creates a `invoice_hashdiff` for change tracking."
+    columns:
+      - name: invoice_sk
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for invoice, generated via `generate_sk` macro."
+
+      - name: invoice_source_id
+        tests:
+          - not_null
+          - unique
+        data_type: number
+        description: >
+          "Original natural key, `invoice_id` from the source system, cast as bigint."
+
+      - name: customer_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('customer')
+              field: customer_source_id
+        data_type: number
+        description: >
+          "Original natural key of the customer invoiced."
+
+      - name: customer_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('customer')
+              field: customer_sk
+        data_type: varchar
+        description: >
+          "Surrogate key of the customer invoiced."
+
+      - name: invoice_date
+        tests:
+          - not_null
+        data_type: date
+        description: >
+           "Date invoice issued."
+
+      - name: invoice_billing_address
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Street address of customer invoiced."
+
+      - name: invoice_billing_city
+        tests:
+          - not_null
+        data_type: varchar
+        description: "City of customer invoiced."
+
+      - name: invoice_billing_state
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "State of customer invoiced."
+
+      - name: invoice_billing_country
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Country of customer invoiced."
+
+      - name: invoice_billing_postal_code
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Postal code of customer invoiced."
+
+      - name: invoice_total
+        tests:
+          - not_null
+        data_type: number
+        description: >
+           "Total amount of invoice."
+
+      - name: invoice_hashdiff
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - unique
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: media_type
+    description: >
+      "This model transforms raw media_type data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns 
+        a surrogate key (`media_type_sk`), 
+        and creates a `media_type_hashdiff` for change tracking."
+    columns:
+      - name: media_type_sk
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for media_type, generated via `generate_sk` macro."
+
+      - name: media_type_source_id
+        tests:
+          - not_null
+          - unique
+        data_type: number
+        description: >
+          "Original natural key, `media_type_id` from the source system, cast as bigint."
+
+      - name: media_type_name
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+           "Name of media type."
+
+      - name: media_type_hashdiff
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: playlist_track
+    description: >
+      "This model transforms raw playlist_track data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns 
+        a surrogate key (`playlist_track_sk`)"
+    columns:
+      - name: playlist_track_sk
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for playlist_track, generated via `generate_sk` macro."
+
+      - name: playlist_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('playlist')
+              field: playlist_source_id
+        data_type: number
+        description: >
+          "Original natural key, [`playlist_id`,`track_id`] from the source system, cast as bigint."
+
+      - name: playlist_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('playlist')
+              field: playlist_sk
+        data_type: varchar
+        description: >
+          "Surrogate key of the playlist."
+
+      - name: track_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('track')
+              field: track_source_id
+        data_type: number
+        description: >
+          "Original natural key of the album track."
+
+      - name: track_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('track')
+              field: track_sk
+        data_type: varchar
+        description: >
+          "Surrogate key of the album track."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: playlist
+    description: >
+      "This model transforms raw playlist data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns 
+        a surrogate key (`playlist_sk`), 
+        and creates a `playlist_hashdiff` for change tracking."
+    columns:
+      - name: playlist_sk
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for playlist, generated via `generate_sk` macro."
+
+      - name: playlist_source_id
+        tests:
+          - not_null
+          - unique
+        data_type: number
+        description: >
+          "Original natural key, `playlist_id` from the source system, cast as bigint."
+
+      - name: playlist_name
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+           "Name of playlist."
+
+      - name: playlist_hashdiff
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
+
+  - name: track
+    description: >
+      "This model transforms raw track data from the landing zone.
+        It standardizes naming,data types, casts IDs, assigns 
+        a surrogate key (`track_sk`), 
+        and creates a `track_hashdiff` for change tracking."
+    columns:
+      - name: track_sk
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description:  >
+          "Surrogate key for track, generated via `generate_sk` macro."
+
+      - name: track_source_id
+        tests:
+          - not_null
+          - unique
+        data_type: number
+        description: >
+          "Original natural key, `track_id` from the source system, cast as bigint."
+
+      - name: track_name
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Name of album track."
+
+      - name: album_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('album')
+              field: album_source_id
+        data_type: number
+        description: >
+          "Original natural key of the album track."
+
+      - name: album_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('album')
+              field: album_sk
+        data_type: number
+        description: >
+          "Surrogate key of the track's album."
+
+      - name: media_type_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('media_type')
+              field: media_type_source_id
+        data_type: number
+        description: >
+          "Original natural key of the album track media type."
+
+      - name: media_type_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('media_type')
+              field: media_type_sk
+        data_type: number
+        description: >
+          "Surrogate key of the album's media_type."
+
+      - name: genre_source_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('genre')
+              field: genre_source_id
+        data_type: number
+        description: >
+          "Original natural key of the album track genre."
+
+      - name: genre_sk
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('genre')
+              field: genre_sk
+        data_type: number
+        description: >
+          "Surrogate key of the album's genre."
+      
+      - name: track_composer
+        tests:
+          - not_null
+        data_type: varchar
+        description: >
+           "Composer of album track."
+
+      - name: track_length_milliseconds
+        data_type: varchar
+        tests:
+          - not_null
+        description: >
+           "Album track length in millseconds."
+
+      - name: track_unit_price
+        tests:
+          - not_null
+          - unique
+        data_type: number
+        description: >
+           "Unit price of album track."
+
+      - name: track_hashdiff
+        tests:
+          - not_null
+          - unique
+        data_type: varchar
+        description: >
+          "Hash of non-key columns used for change detection in SCD Type 2 logic."
+
+      - name: source_data_loaded_datetime
+        tests:
+          - not_null
+        data_type: timestamp_ntz
+        description: > 
+          "Timestamp indicating when the record was loaded from the source system into landing."
