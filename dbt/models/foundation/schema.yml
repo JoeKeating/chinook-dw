@@ -60,7 +60,8 @@ models:
 
       - name: artist_name
         data_type: varchar
-        description: ""
+        description: >
+           "Name of the artist."
 
       - name: artist_hashdiff
         data_type: varchar
@@ -90,51 +91,63 @@ models:
 
       - name: customer_first_name
         data_type: varchar
-        description: ""
+        description: >
+           "First name of the customer."
 
       - name: customer_last_name
         data_type: varchar
-        description: ""
+        description: >
+           "Last name of the customer."
 
       - name: customer_company
         data_type: varchar
-        description: ""
+        description: >
+           "Company the customer employed by."
 
       - name: customer_address
         data_type: varchar
-        description: ""
+        description: >
+           "Customer street address."
 
       - name: customer_city
         data_type: varchar
-        description: ""
+        description: >
+           "Customer city."
 
       - name: customer_state
         data_type: varchar
-        description: ""
+        description: >
+           "Customer state."
 
       - name: customer_country
         data_type: varchar
-        description: ""
+        description: >
+           "Customer country."
 
       - name: customer_postal_code
         data_type: varchar
-        description: ""
+        description: >
+           "Customer postal code."
 
       - name: customer_phone
         data_type: varchar
-        description: ""
+        description: >
+           "Customer phone number."
 
       - name: customer_fax
         data_type: varchar
-        description: ""
+        description: >
+           "Customer fax number."
 
       - name: customer_email
         data_type: varchar
-        description: ""
+        description: >
+           "Customer email address."
 
       - name: customer_support_rep_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the customer's support rep."
 
       - name: customer_support_rep_sk
         data_type: varchar
@@ -169,19 +182,23 @@ models:
 
       - name: employee_last_name
         data_type: varchar
-        description: ""
+        description: >
+           "Employee last name."
 
       - name: employee_first_name
         data_type: varchar
-        description: ""
+        description: >
+           "Employee first name."
 
       - name: employee_title
         data_type: varchar
-        description: ""
+        description: >
+           "Employee title"
 
       - name: reports_to_employee_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the employee's manager."
 
       - name: reports_to_employee_sk
         data_type: varchar
@@ -190,43 +207,53 @@ models:
 
       - name: employee_birth_date
         data_type: date
-        description: ""
+        description: >
+           "Employee date of birth."
 
       - name: employee_hire_date
         data_type: date
-        description: ""
+        description: >
+           "Employee date of hire."
 
       - name: employee_address
         data_type: varchar
-        description: ""
+        description: >
+           "Employee street address."
 
       - name: employee_city
         data_type: varchar
-        description: ""
+        description: >
+           "Employee city."
 
       - name: employee_state
         data_type: varchar
-        description: ""
+        description: >
+           "Employee state."
 
       - name: employee_country
         data_type: varchar
-        description: ""
+        description: >
+           "Employee country."
 
       - name: employee_postal_code
         data_type: varchar
-        description: ""
+        description: >
+           "Employee postal code."
 
       - name: employee_phone
         data_type: varchar
-        description: ""
+        description: >
+           "Employee phone number."
 
       - name: employee_fax
         data_type: varchar
-        description: ""
+        description: >
+           "Employee fax number."
 
       - name: employee_email
         data_type: varchar
-        description: ""
+        description: >
+           "Employee email address."
 
       - name: employer_hashdiff
         data_type: varchar
@@ -256,7 +283,8 @@ models:
 
       - name: genre_name
         data_type: varchar
-        description: ""
+        description: >
+           "Name of genre."
 
       - name: genre_hashdiff
         data_type: varchar
@@ -284,14 +312,15 @@ models:
         description: >
           "Original natural key, `invoice_line_id` from the source system, cast as bigint."
 
+      - name: invoice_source_id
+        data_type: number
+        description: >
+          "Original natural key of the customer's support rep."
+      
       - name: invoice_sk
         data_type: varchar
         description: >
           "Surrogate key of the parent invoice."
-
-      - name: invoice_source_id
-        data_type: number
-        description: ""
 
       - name: track_sk
         data_type: varchar
@@ -300,15 +329,18 @@ models:
 
       - name: track_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the album track."
 
       - name: invoice_line_unit_price
         data_type: number
-        description: ""
+        description: >
+           "Unit price of invoice line album track."
 
       - name: invoice_line_quantity
         data_type: number
-        description: ""
+        description: >
+           "Quanity of album track purchased."
 
       - name: invoice_line_hashdiff
         data_type: varchar
@@ -338,7 +370,8 @@ models:
 
       - name: customer_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the customer invoiced."
 
       - name: customer_sk
         data_type: varchar
@@ -347,31 +380,37 @@ models:
 
       - name: invoice_date
         data_type: date
-        description: ""
+        description: >
+           "Date invoice issued."
 
       - name: invoice_billing_address
         data_type: varchar
-        description: ""
+        description: >
+           "Street address of customer invoiced."
 
       - name: invoice_billing_city
         data_type: varchar
-        description: ""
+        description: "City of customer invoiced."
 
       - name: invoice_billing_state
         data_type: varchar
-        description: ""
+        description: >
+           "State of customer invoiced."
 
       - name: invoice_billing_country
         data_type: varchar
-        description: ""
+        description: >
+           "Country of customer invoiced."
 
       - name: invoice_billing_postal_code
         data_type: varchar
-        description: ""
+        description: >
+           "Postal code of customer invoiced."
 
       - name: invoice_total
         data_type: number
-        description: ""
+        description: >
+           "Total amount of invoice."
 
       - name: invoice_hashdiff
         data_type: varchar
@@ -402,7 +441,8 @@ models:
 
       - name: media_type_name
         data_type: varchar
-        description: ""
+        description: >
+           "Name of media type."
 
       - name: media_type_hashdiff
         data_type: varchar
@@ -437,7 +477,8 @@ models:
 
       - name: track_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the album track."
 
       - name: track_sk
         data_type: varchar
@@ -468,7 +509,8 @@ models:
 
       - name: playlist_name
         data_type: varchar
-        description: ""
+        description: >
+           "Name of playlist."
 
       - name: playlist_hashdiff
         data_type: varchar
@@ -499,31 +541,53 @@ models:
 
       - name: track_name
         data_type: varchar
-        description: ""
+        description: >
+           "Name of albu track."
 
       - name: album_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the album track."
+
+      - name: album_sk
+        data_type: number
+        description: >
+          "Surrogate key of the track's album."
 
       - name: media_type_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the album track media type."
+
+      - name: media_type_sk
+        data_type: number
+        description: >
+          "Surrogate key of the album's media_type."
 
       - name: genre_source_id
         data_type: number
-        description: ""
+        description: >
+          "Original natural key of the album track genre."
 
+      - name: genre_sk
+        data_type: number
+        description: >
+          "Surrogate key of the album's genre."
+      
       - name: track_composer
         data_type: varchar
-        description: ""
+        description: >
+           "Composer of album track."
 
       - name: track_length_milliseconds
         data_type: varchar
-        description: ""
+        description: >
+           "Album track length in millseconds."
 
       - name: track_unit_price
         data_type: number
-        description: ""
+        description: >
+           "Unit price of album track."
 
       - name: track_hashdiff
         data_type: varchar
