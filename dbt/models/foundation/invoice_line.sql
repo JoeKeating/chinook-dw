@@ -49,7 +49,7 @@ transformed_invoice_line as (
                                             ,'invoice_line_unit_price'
                                             ,'invoice_line_quantity'
                                             ]) }} as invoice_line_hashdiff   
-            ,datetime_loaded   as source_data_loaded_datetime
+            ,datetime_loaded  as source_data_loaded_datetime
     from    joined_invoice_line
 )
 

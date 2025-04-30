@@ -54,15 +54,15 @@ joined_track as (
 transformed_track as (
     select {{ generate_sk('track', ['track_id']) }} as track_sk
             ,cast(track_id as bigint) as track_source_id
-            ,name as track_name
+            ,cast(name as varchar(50)) as track_name
             ,cast(album_source_id as bigint) as album_source_id
             ,cast(media_type_source_id as bigint) as media_type_source_id
             ,cast(genre_source_id  as bigint) as genre_source_id
             ,album_sk
             ,media_type_sk
             ,genre_sk
-            ,composer as track_composer
-            ,milliseconds as track_length_milliseconds
+            ,cast(composer as varchar(255)) as track_composer
+            ,cast(milliseconds as bigint) as track_length_milliseconds
             ,cast(unit_price as number(10,2)) as track_unit_price
             ,{{ generate_hashdiff('track', ['name'
                                             ,'media_type_source_id'
@@ -79,11 +79,15 @@ select  track_sk
         ,track_source_id
         ,track_name
         ,album_source_id
+        ,album_sk
         ,media_type_source_id
+        ,media_type_sk
         ,genre_source_id
+        ,genre_sk
         ,track_composer
         ,track_length_milliseconds
         ,track_unit_price
+        ,track_hashdiff
         ,source_data_loaded_datetime
 from    transformed_track
 
