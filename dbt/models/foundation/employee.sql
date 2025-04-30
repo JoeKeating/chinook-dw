@@ -49,7 +49,7 @@ base_employee as (
                                                         ,'employee_phone' 
                                                         ,'employee_fax' 
                                                         ,'employee_email'    
-                                                        ]) }} as employer_hashdiff         
+                                                        ]) }} as employee_hashdiff         
                 ,datetime_loaded as source_data_loaded_datetime
         from landing_employee
 ),
@@ -71,7 +71,7 @@ transformed_employee as (
                 ,e.employee_phone        
                 ,e.employee_fax           
                 ,e.employee_email
-                ,e.employer_hashdiff          
+                ,e.employee_hashdiff          
                 ,e.source_data_loaded_datetime
         from    base_employee e
                 left outer join base_employee m
@@ -95,6 +95,6 @@ transformed_employee as (
                 ,employee_phone        
                 ,employee_fax           
                 ,employee_email
-                ,employer_hashdiff          
+                ,employee_hashdiff          
                 ,source_data_loaded_datetime
         from    transformed_employee
