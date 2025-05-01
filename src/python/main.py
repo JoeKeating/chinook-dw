@@ -1,10 +1,8 @@
 import json
 import logging
 import yaml
-from boto3 import Session
-from sqlalchemy import create_engine
-from sqlalchemy.engine import Engine
 import src.python.chinook_loader as chinook_loader
+import src.python.utils.db_connection_helpers as db_connection_helpers
 import argparse
 
 
@@ -13,68 +11,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
-
-def get_chinook_loader_secret() -> dict:
-    try:
-        session = Session(profile_name="chinook-loader-secret-reader")
-        client = session.client(service_name="secretsmanager", region_name="us-east-2")
-    except Exception as e:
-        logging.error(
-            f"Function get_chinook_loader_secret: Error occurred establishing {e}"
-        )
-        return {}
-    try:
-        get_secret_value_response = client.get_secret_value(
-            SecretId="chinook_loader_secret"
-        )
-        parsed_secrets = json.loads(get_secret_value_response["SecretString"])
-        logging.info(f"Function get_chinook_loader_secret: Completed successfully.")
-        return parsed_secrets
-    except Exception as e:
-        logging.error(
-            f"Function get_chinook_loader_secret: Error occurred establishing {e}"
-        )
-        return {}
-
-
-def build_chinook_dw_connection_string(parsed_yaml_json: dict) -> str:
-    """Get chinook connect data from table_load.yaml"""
-    secrets = get_chinook_loader_secret()
-    try:
-        db_user = secrets["username"]
-        db_password = secrets["password"]
-        db_account = parsed_yaml_json["connection_string"]["account"]
-        db_database = parsed_yaml_json["connection_string"]["database"]
-        db_schema = parsed_yaml_json["connection_string"]["schema"]
-        db_role = parsed_yaml_json["connection_string"]["role"]
-        db_warehouse = parsed_yaml_json["connection_string"]["warehouse"]
-        db_timezone = parsed_yaml_json["connection_string"]["timezone"]
-
-        chinook_dw_connection_string = (
-            f"snowflake://{db_user}:{db_password}@{db_account}/"
-            f"{db_database}/{db_schema}?role={db_role}&warehouse={db_warehouse}&timezone={db_timezone}"
-        )
-        logging.info(f'Function build_chinook_dw_connection: Completed successfully')
-        return chinook_dw_connection_string
-    except Exception as e:
-        logging.error(f'Function build_chinook_dw_connection: Error occurred {e}')
-        return ''
-
-
-
-def create_chinook_dw_engine(connect_string: str) -> Engine | bool:
-    """Open a connection to Snowflake"""
-
-    try:
-        engine = create_engine(connect_string)
-        logging.info(f'Function create_chinook_dw_engine: Completed successfully')
-        return engine
-
-    except Exception as e:
-        logging.error(f"Function create_chinook_dw_engine: Error occurred {e} ")
-        return False
-
 
 def read_chinook_data(file_path: str) -> dict:
     """Read in chinook json"""
@@ -115,8 +51,9 @@ def run_data_load():
         chinook_data = read_chinook_data(chinook_data_file_path)
         parsed_yaml_json = read_table_load_yaml(table_load_file_path)
         table_list = chinook_loader.get_table_list(parsed_yaml_json, "landing")
-        connect_string = build_chinook_dw_connection_string(parsed_yaml_json)
-        engine = create_chinook_dw_engine(connect_string)
+        connect_string =  db_connection_helpers.get_connection_string("chinook-loader-secret-reader",
+                                                                        "chinook-connection-strings")
+        engine = db_connection_helpers.create_chinook_dw_engine(connect_string)
         for table in table_list:
             table_data = chinook_loader.build_load_data(
                 chinook_data,

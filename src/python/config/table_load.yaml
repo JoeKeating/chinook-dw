@@ -4,14 +4,6 @@ metadata:
   generated_on: 2025-04-19
 version: 1
 
-connection_string:
-  database: CHINOOK
-  schema: LANDING
-  role: CHINOOK_LOADER_ROLE
-  account: pia97753.us-east-1
-  timezone: America/New_York
-  warehouse: JPK_WAREHOUSE
-
 databases:
   - name: chinook
     schemas:

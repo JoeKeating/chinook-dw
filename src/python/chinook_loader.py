@@ -26,7 +26,7 @@ def check_for_key(in_dict: dict, key: str) -> bool:
 
 
 def check_for_schema(parsed_yaml_json: dict, in_schema: str) -> bool:
-    """Check if schema exists in parsed yaml file"""
+    """Check if target schema exists in parsed yaml file"""
     try:
         schema_list = [
             schema["name"] for schema in parsed_yaml_json["databases"][0]["schemas"]
@@ -136,7 +136,7 @@ def load_chinook_data(
             f"Function load_chinook_data: Error occurred loading {table_name}: {e}"
         )
         return False
-#####
+
 def read_table_load_yaml(file_path: str) -> dict:
     """Read in table_load.yaml"""
     try:
