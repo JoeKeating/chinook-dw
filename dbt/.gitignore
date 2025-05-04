@@ -1,7 +1,6 @@
 
 config/
 target/
-dbt_packages/
 logs/
 
 

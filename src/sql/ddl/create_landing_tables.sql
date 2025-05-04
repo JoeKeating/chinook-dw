@@ -1,7 +1,7 @@
 /* 
 
 Name: create_tables.sql
-Purpose: Creates chinook db tables
+Purpose: Creates chinook db tables in landing schema
 Comment: - Run as sysadmin
          - Replace <your warehouse> with appropriate value
 

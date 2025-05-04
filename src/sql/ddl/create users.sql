@@ -9,7 +9,7 @@ Comment: - Run as securityadmin
 
 */
 create or replace user chinook_loader
-  default_password = <your password>
+  password = <your password>
   default_role = CHINOOK_LOADER_ROLE
   default_warehouse = <your warehouse>
   default_namespace = CHINOOK
@@ -19,7 +19,7 @@ create or replace user chinook_loader
 
 
 create or replace user dbt_user
-  default_password = <your password>
+  password = <your password>
   default_role = DBT_MODEL_RUNNER_ROLE
   default_warehouse = <your warehouse>
   default_namespace = CHINOOK

@@ -17,7 +17,7 @@ def get_connection_string(profile_name: str, secret_name: str) -> str:
         client = session.client(service_name="secretsmanager", region_name="us-east-2")
     except Exception as e:
         logging.error(
-            f"Function get_chinook_loader_secret: Error occurred establishing {e}"
+            f"Function 1 get_chinook_loader_secret: Error occurred establishing {e}"
         )
         return ''
     try:
@@ -26,10 +26,11 @@ def get_connection_string(profile_name: str, secret_name: str) -> str:
         )
         parsed_secrets = json.loads(get_secret_value_response["SecretString"])
         logging.info(f"Function get_chinook_loader_secret: Completed successfully.")
-        return parsed_secrets['chinook_loader_conn']
+        print(parsed_secrets['chinook-loader-conn'])
+        return parsed_secrets['chinook-loader-conn']
     except Exception as e:
         logging.error(
-            f"Function get_chinook_loader_secret: Error occurred establishing {e}"
+            f"Function 2 get_chinook_loader_secret: Error occurred establishing {e}"
         )
         return ''
 
