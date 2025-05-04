@@ -20,8 +20,8 @@ chinook-dw-main/
 
 - Build a foundational data warehouse using the [Chinook dataset](https://github.com/lerocha/chinook-database)
 - Load and transform data into **landing**, **foundation**, and **core** zones
-- Practice version-controlled, testable, and scalable data engineering techniques
-- Prep for real-world use of **dbt**, **Snowflake**, and **SQLAlchemy**
+- Simulate version-controlled, testable, and scalable data engineering techniques using **dbt**, **Snowflake**, and **SQLAlchemy**.
+
 
 ## 🛠️ Technologies Used
 
