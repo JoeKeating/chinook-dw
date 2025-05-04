@@ -8,4 +8,7 @@ data/
 artifacts/
 TODO.local.md
 __pycache__/
+src/sql/dml/
+src/sql/queries/
+src/sql/views/
 *.py[cod]

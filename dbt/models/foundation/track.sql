@@ -54,7 +54,7 @@ joined_track as (
 transformed_track as (
     select {{ generate_sk('track', ['track_id']) }} as track_sk
             ,cast(track_id as bigint) as track_source_id
-            ,cast(name as varchar(50)) as track_name
+            ,cast(name as varchar(255)) as track_name
             ,cast(album_source_id as bigint) as album_source_id
             ,cast(media_type_source_id as bigint) as media_type_source_id
             ,cast(genre_source_id  as bigint) as genre_source_id

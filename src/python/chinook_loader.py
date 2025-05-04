@@ -1,3 +1,4 @@
+import yaml
 import logging
 from sqlalchemy import Table, MetaData, insert
 from sqlalchemy.engine import Engine

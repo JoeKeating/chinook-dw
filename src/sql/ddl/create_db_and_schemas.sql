@@ -1,12 +1,14 @@
 /*
 Name: create_db_and_schemas.sql
 Purpose: Creates chinook db and schemas
-Comment: Run as sysadmin.
+Comment: - Run as sysadmin
+         - Replace <your warehouse> with appropriate value
+
 
 */
-use warehouse <your_warehouse>;
-create database if not exists chinook;
+use warehouse <your warehouse>;
+create or replace database  chinook;
 
-create schema if not exists chinook.landing;
-create schema if not exists chinook.foundation;
-create schema if not exists chinook.core;
+create or replace schema  chinook.landing;
+create or replace schema chinook.foundation;
+create or replace schema chinook.core;
