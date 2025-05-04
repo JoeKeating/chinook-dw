@@ -2,5 +2,6 @@
 config/
 target/
 logs/
+dbt_packages/
 
 

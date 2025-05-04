@@ -12,3 +12,5 @@ src/sql/dml/
 src/sql/queries/
 src/sql/views/
 *.py[cod]
+.DS_Store
+
