@@ -46,10 +46,10 @@ Before beginning, note that the database environment must be created manually by
 5. Clone the repo and create a virtual environment (compatible with both python3 -m venv and pyenv workflows):
    ```bash
    git clone https://github.com/yourusername/chinook-dw.git
-cd chinook-dw
-pyenv virtualenv 3.x.x chinook-dw  # or use python3 -m venv venv
-pyenv local chinook-dw
-pip install -r requirements.txt
+   cd chinook-dw
+   pyenv virtualenv 3.x.x chinook-dw  # or use python3 -m venv venv
+   pyenv local chinook-dw
+   pip install -r requirements.txt
    ```
 
 6. Install dependencies:
