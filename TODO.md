@@ -11,33 +11,30 @@
 
 ## 🔄 Version 2 – Enhancements & Refinement
 - [x] Replace raw SQL setup with parameterized Python scripts
-<<<<<<< HEAD
+
 - [x] CLI commands: `create-user`, `load-all`, `setup-schema`
 - [x] Add logging with timestamps for all loads
 - [x] chinook_loader secrets moved to AWS Secrets
-- [ ] Model Foundation zone in dbt
-=======
-- [ ] CLI commands: `create-user`, `load-all`, `setup-schema`
+- [x] CLI commands: `load`
 - [x] Add logging with timestamps for all loads
 - [x] chinook_loader secrets moved to AWS Secrets
-- [ ] Buildout foundation models in dbt
->>>>>>> 7ed56629a138f4d91eb8ad513e1afa2525d1a154
+- [x] Buildout foundation models in dbt
+- [x] Replace hardcoded load functions with a loop driven by a config map
+- [x] Create Makefile
 
 
 ## 🧪 Version 3 – Test & Automate
+- [ ] Buildout core models in dbt
 - [ ] Add test coverage with Pytest or Unittest
 - [ ] Mock Snowflake connections in local test mode
+- [ ] Move hardcoded file paths into configs
+- [ ] Add config based automated db setup
 - [ ] Add CI via GitHub Actions
-- [ ] Config-driven enhancements
-    - [x] Replace hardcoded load functions with a loop driven by a config map
-    - [x]  Centralize environment-specific metadata (e.g., DB, schema, role) in config
-    - [ ]  Configure logging levels, formats, and output destinations via logging.yml
-    - [ ]  Move retry logic and error-handling rules into a config file
-    - [ ]  Support dynamic file paths and data sources via config entries
-    - [ ]  Enable toggles for optional load steps (e.g., truncate tables before load)
-    - [ ]  Designate test vs. production behaviors through config switches
+
 
 ## 🌐 Future Wishlist
+- [ ] Generate new data and updates for updates
+- [ ] Configure for incremental loads
 - [ ] Terraform for Snowflake provisioning
 - [ ] Integration with dbt Cloud or Airflow
 - [ ] Optional web interface to trigger jobs

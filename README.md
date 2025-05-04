@@ -33,26 +33,38 @@ chinook-dw-main/
 
 ## 🧪 Getting Started
 
-1. Clone the repo and create a virtual environment:
+Before beginning, note that the database environment must be created manually by running SQL scripts located in src/sql/ddl/. These scripts must be executed in the following order:
+
+1. create_db_and_schemas.sql
+
+2. create_landing_tables.sql
+
+3. create_users.sql
+
+4. create_roles.sql
+
+5. Clone the repo and create a virtual environment (compatible with both python3 -m venv and pyenv workflows):
    ```bash
    git clone https://github.com/yourusername/chinook-dw.git
-   cd chinook-dw
-   python3 -m venv venv && source venv/bin/activate
+cd chinook-dw
+pyenv virtualenv 3.x.x chinook-dw  # or use python3 -m venv venv
+pyenv local chinook-dw
+pip install -r requirements.txt
    ```
 
-2. Install dependencies:
+6. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Set up your `.env` file based on `.env.example` with your Snowflake credentials.
+7. Configure your AWS credentials to allow secure access to Snowflake connection secrets via AWS Secrets Manager.
 
-4. Run initial data loads:
+8. Run initial data loads:
    ```bash
-   python -m src.python.main
+   python -m src.python.main load
    ```
 
-5. Navigate into the `dbt` directory and run transformations:
+9. Navigate into the `dbt` directory and run transformations:
    ```bash
    cd dbt
    dbt build
@@ -60,8 +72,8 @@ chinook-dw-main/
 
 ## 🗂️ dbt Models
 
-- **Sources**: Defined in `models/sources/src_landing.yml`
-- **Models**: To be built across `landing`, `foundation`, and `core`
+- **Sources**: Sources in landing zone defined in `models/sources/src_landing.yml`
+- **Models**: To be built across  `foundation`, and `core`
 - **Tests**: Place future assertions in `tests/`
 
 ## 🎯 Version Roadmap
